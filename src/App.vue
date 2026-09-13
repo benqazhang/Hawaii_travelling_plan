@@ -9,6 +9,11 @@ import {
 import { plannerResultToTravelPlanPage } from "./planner/adapter";
 import { planTrip } from "./planner/engine";
 
+function assetUrl(path: string) {
+  if (/^(?:https?:|data:|blob:)/.test(path)) return path;
+  return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, "")}`;
+}
+
 type IslandId = "oahu" | "maui" | "big" | "kauai";
 type Place = {
   id: string;
@@ -1063,7 +1068,7 @@ function openGeneratedPlan() {
     planner: adaptedPlan.planner,
   };
   localStorage.setItem("hawaii-generated-trip-data", JSON.stringify(data));
-  window.location.href = "/generated-plan/index.html";
+  window.location.href = `${import.meta.env.BASE_URL}generated-plan/index.html`;
 }
 onMounted(() => {
   try {
@@ -1149,7 +1154,7 @@ watch(islandId, () => {
         :aria-disabled="!card.id"
         @click="card.id && go(card.id)"
       >
-        <img :src="card.image" :alt="`${card.name} island`" />
+        <img :src="assetUrl(card.image)" :alt="`${card.name} island`" />
         <span>
           <h3>{{ card.name }}</h3>
           <p>{{ card.tagline }}</p>
@@ -1157,7 +1162,7 @@ watch(islandId, () => {
       </button>
     </section>
     <aside class="island-compare" aria-label="Island comparison">
-      <img src="/places/lanikai.jpg" alt="Hawaii island coast" />
+      <img :src="assetUrl('/places/lanikai.jpg')" alt="Hawaii island coast" />
       <span>
         <b>Not sure which island?</b>
         <small>Compare islands and find your perfect fit</small>
@@ -1170,7 +1175,7 @@ watch(islandId, () => {
     <section
       class="spot-detail-hero"
       :style="{
-        backgroundImage: `linear-gradient(180deg, rgba(0,28,38,.04) 22%, rgba(0,30,40,.94) 100%), url(${detailPlace.image})`,
+        backgroundImage: `linear-gradient(180deg, rgba(0,28,38,.04) 22%, rgba(0,30,40,.94) 100%), url(${assetUrl(detailPlace.image)})`,
       }"
     >
       <button
@@ -1267,7 +1272,11 @@ watch(islandId, () => {
             v-for="moment in detailPlace.detail.best_moments"
             :key="moment.title"
           >
-            <img v-if="moment.image" :src="moment.image" :alt="moment.title" />
+            <img
+              v-if="moment.image"
+              :src="assetUrl(moment.image)"
+              :alt="moment.title"
+            />
             <span
               ><b>{{ moment.title }}</b
               ><small>{{ moment.description }}</small></span
@@ -1278,7 +1287,7 @@ watch(islandId, () => {
 
       <section id="detail-photos" class="detail-photos">
         <header><h2>Spot photo</h2></header>
-        <img :src="detailPlace.image" :alt="detailPlace.name" />
+        <img :src="assetUrl(detailPlace.image)" :alt="detailPlace.name" />
       </section>
 
       <section
@@ -1487,7 +1496,7 @@ watch(islandId, () => {
             :key="related.id"
             @click="openSpotDetail(related)"
           >
-            <img :src="related.image" :alt="related.name" /><span
+            <img :src="assetUrl(related.image)" :alt="related.name" /><span
               ><b>{{ related.name }}</b
               ><small>{{ related.tag }}</small></span
             >
@@ -1529,7 +1538,7 @@ watch(islandId, () => {
       class="island-hero"
       :style="{
         '--accent': islands[islandId].color,
-        backgroundImage: `linear-gradient(180deg, rgba(0,33,45,.04) 24%, rgba(0,31,41,.9) 100%), url(${islandPresentation[islandId].image})`,
+        backgroundImage: `linear-gradient(180deg, rgba(0,33,45,.04) 24%, rgba(0,31,41,.9) 100%), url(${assetUrl(islandPresentation[islandId].image)})`,
       }"
     >
       <button class="island-back" aria-label="返回首页" @click="go('home')">
@@ -1593,7 +1602,7 @@ watch(islandId, () => {
           @click="openSpotDetail(p)"
           @keydown.enter.self="openSpotDetail(p)"
         >
-          <img :src="p.image" :alt="p.name" />
+          <img :src="assetUrl(p.image)" :alt="p.name" />
           <div class="spot-copy">
             <span class="spot-tag">{{ p.tag }}</span>
             <h3>{{ p.name }}</h3>
@@ -1638,7 +1647,7 @@ watch(islandId, () => {
           <img
             v-for="p in chosen.slice(0, 3)"
             :key="p.id"
-            :src="p.image"
+            :src="assetUrl(p.image)"
             :alt="p.name"
           />
         </span>
