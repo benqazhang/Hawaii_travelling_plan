@@ -1,0 +1,26 @@
+[
+  {
+    "id": "volcanoes",
+    "file": "volcanoes.jpg",
+    "title": "File:WalkingonIki.jpg",
+    "artist": "<a href=\"//commons.wikimedia.org/wiki/User:Relativity\" title=\"User:Relativity\">Relativity</a>",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:WalkingonIki.jpg"
+  },
+  {
+    "id": "maunakea",
+    "file": "maunakea.jpg",
+    "title": "File:Mauna Kea Eastern Telescopes.jpg",
+    "artist": "<a href=\"//commons.wikimedia.org/wiki/User:Generic1139\" title=\"User:Generic1139\">Generic1139</a>",
+    "license": "CC BY 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Mauna_Kea_Eastern_Telescopes.jpg"
+  },
+  {
+    "id": "green",
+    "file": "green.jpg",
+    "title": "File:Panorama of Papakolea green sand beach in Hawaii 2.jpg",
+    "artist": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:Aren_Elliott&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:Aren Elliott (page does not exist)\">Aren Elliott</a>",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Panorama_of_Papakolea_green_sand_beach_in_Hawaii_2.jpg"
+  }
+]

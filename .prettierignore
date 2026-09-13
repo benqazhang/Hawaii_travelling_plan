@@ -1,0 +1,14 @@
+dist
+node_modules
+src-tauri/target
+src-tauri/gen
+pnpm-lock.yaml
+public/generated-plan/assets
+public/generated-plan/ledger.css
+public/generated-plan/ledger.js
+public/generated-plan/overview-map.js
+public/generated-plan/route-ui.js
+public/generated-plan/runtime-storage.js
+public/generated-plan/site-navigation.js
+public/generated-plan/ticket-pdf-preview.js
+public/places/attribution-*.json

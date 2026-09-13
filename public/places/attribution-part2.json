@@ -1,0 +1,66 @@
+[
+  {
+    "id": "manta",
+    "file": "manta.jpg",
+    "title": "File:Manta Ray in Kona, Hawaii.jpg",
+    "artist": "<a href=\"//commons.wikimedia.org/wiki/User:William_Stamps_Howard\" title=\"User:William Stamps Howard\">William Stamps Howard</a>",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Manta_Ray_in_Kona,_Hawaii.jpg"
+  },
+  {
+    "id": "punaluu",
+    "file": "punaluu.jpg",
+    "title": "File:Green turtle Chelonia mydas is basking on Punaluu Beach Big Island of Hawaii.jpg",
+    "artist": "<a rel=\"nofollow\" class=\"external text\" href=\"https://sites.google.com/site/thebrockeninglory/\">Brocken Inaglory</a>",
+    "license": "CC BY-SA 3.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Green_turtle_Chelonia_mydas_is_basking_on_Punaluu_Beach_Big_Island_of_Hawaii.jpg"
+  },
+  {
+    "id": "akaka",
+    "file": "akaka.jpg",
+    "title": "File:Akaka falls dllu.jpg",
+    "artist": "<a href=\"//commons.wikimedia.org/wiki/User:Dllu\" title=\"User:Dllu\">Dllu</a>",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Akaka_falls_dllu.jpg"
+  },
+  {
+    "id": "napali",
+    "file": "napali.jpg",
+    "title": "File:Na Pali Coast.jpg",
+    "artist": "<a href=\"//commons.wikimedia.org/w/index.php?title=User:MEBurkhart&amp;action=edit&amp;redlink=1\" class=\"new\" title=\"User:MEBurkhart (page does not exist)\">MEBurkhart</a>",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Na_Pali_Coast.jpg"
+  },
+  {
+    "id": "waimea",
+    "file": "waimea.jpg",
+    "title": "File:Waimea Canyon, Kauaʻi.jpg",
+    "artist": "<bdi><a href=\"https://www.wikidata.org/wiki/Q57175365\" class=\"extiw\" title=\"d:Q57175365\"><span title=\"German-American photographer, Wikipedian, and Executive Director of the Wiki Education Foundation\">Frank Schulenburg</span></a></bdi>",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Waimea_Canyon,_Kaua%CA%BBi.jpg"
+  },
+  {
+    "id": "hanalei",
+    "file": "hanalei.JPG",
+    "title": "File:Hanalei Bay from Wai'oli Beach Park.JPG",
+    "artist": "<a href=\"https://en.wikipedia.org/wiki/User:Goshea\" class=\"extiw\" title=\"wikipedia:User:Goshea\">Goshea</a> at <a href=\"https://en.wikipedia.org/wiki/\" class=\"extiw\" title=\"wikipedia:\">English Wikipedia</a>",
+    "license": "CC BY 2.5",
+    "source": "https://commons.wikimedia.org/wiki/File:Hanalei_Bay_from_Wai%27oli_Beach_Park.JPG"
+  },
+  {
+    "id": "kilauea",
+    "file": "kilauea.jpg",
+    "title": "File:Red-footed booby at Kīlauea Point National Wildlife Refuge.jpg",
+    "artist": "<a href=\"//commons.wikimedia.org/wiki/User:Frank_Schulenburg\" title=\"User:Frank Schulenburg\">Frank Schulenburg</a>",
+    "license": "CC BY-SA 4.0",
+    "source": "https://commons.wikimedia.org/wiki/File:Red-footed_booby_at_K%C4%ABlauea_Point_National_Wildlife_Refuge.jpg"
+  },
+  {
+    "id": "wailua",
+    "file": "wailua.jpg",
+    "title": "File:Wailua Falls, Kauai - Kings Book of Hawaii.jpg",
+    "artist": "Charles E. King",
+    "license": "Public domain",
+    "source": "https://commons.wikimedia.org/wiki/File:Wailua_Falls,_Kauai_-_Kings_Book_of_Hawaii.jpg"
+  }
+]
