@@ -705,6 +705,8 @@ const selected = ref<string[]>([
 const mapPlace = ref<Place | null>(null);
 const detailPlace = ref<Place | null>(null);
 const selectedActivity = ref<ActivityId>("all");
+const copiedSpotId = ref<string | null>(null);
+let copyResetTimer: ReturnType<typeof setTimeout> | undefined;
 const todos = ref([
   { id: 1, text: "办理 ESTA，确认护照有效期", done: false },
   { id: 2, text: "预约火山日出和热门活动", done: false },
@@ -784,6 +786,48 @@ function toggle(id: string) {
   selected.value = selected.value.includes(id)
     ? selected.value.filter((x) => x !== id)
     : [...selected.value, id];
+}
+function spotSearchText(place: Place) {
+  return `${islands[place.island].name} ${place.name} ${place.en}`;
+}
+async function copySpotName(place: Place) {
+  const text = `${place.name} · ${place.en}`;
+  try {
+    await navigator.clipboard.writeText(text);
+  } catch {
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    textarea.remove();
+  }
+  copiedSpotId.value = place.id;
+  if (copyResetTimer) clearTimeout(copyResetTimer);
+  copyResetTimer = setTimeout(() => {
+    copiedSpotId.value = null;
+  }, 1800);
+}
+function openXiaohongshu(place: Place) {
+  const keyword = encodeURIComponent(spotSearchText(place));
+  const webUrl = `https://www.xiaohongshu.com/search_result?keyword=${keyword}`;
+  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (!isMobile) {
+    window.open(webUrl, "_blank", "noopener,noreferrer");
+    return;
+  }
+  const startedAt = Date.now();
+  window.location.href = `xhsdiscover://search/result?keyword=${keyword}&target_search=notes&source=deeplink`;
+  setTimeout(() => {
+    if (
+      document.visibilityState === "visible" &&
+      Date.now() - startedAt < 2600
+    ) {
+      window.location.href = webUrl;
+    }
+  }, 1300);
 }
 function openGeneratedPlan() {
   const plannerResult = planTrip({
@@ -1214,6 +1258,12 @@ watch(islandId, () => {
             selected.includes(detailPlace.id) ? "✓ 已加入行程" : "+ 加入行程"
           }}
         </button>
+        <div class="detail-quick-actions">
+          <button @click="copySpotName(detailPlace)">
+            {{ copiedSpotId === detailPlace.id ? "✓ 已复制" : "复制名称" }}
+          </button>
+          <button @click="openXiaohongshu(detailPlace)">小红书攻略 ↗</button>
+        </div>
       </div>
     </section>
 
@@ -1612,9 +1662,15 @@ watch(islandId, () => {
               <small v-if="p.guide">— 孤独星球 · {{ p.guide.page }}</small>
               <small v-else>— Google Maps 游客反馈</small>
             </blockquote>
-            <button class="spot-map-link" @click.stop="mapPlace = p">
-              Google Maps ↗
-            </button>
+            <div class="spot-source-actions">
+              <button class="spot-map-link" @click.stop="mapPlace = p">
+                Google Maps ↗
+              </button>
+              <button @click.stop="copySpotName(p)">
+                {{ copiedSpotId === p.id ? "✓ 已复制" : "复制名称" }}
+              </button>
+              <button @click.stop="openXiaohongshu(p)">小红书攻略 ↗</button>
+            </div>
           </div>
           <button
             class="spot-select"

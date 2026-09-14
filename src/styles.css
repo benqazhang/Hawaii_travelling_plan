@@ -254,6 +254,24 @@
   color: rgba(255, 255, 255, 0.8);
   font-size: 10px;
 }
+.spot-source-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  margin-top: 6px;
+}
+.spot-source-actions button {
+  min-height: 30px;
+  padding: 5px 0;
+  border: 0;
+  background: none;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 10px;
+  font-weight: 700;
+}
+.spot-source-actions button:last-child {
+  color: #ffd8d5;
+}
 .spot-select {
   position: absolute;
   right: 16px;
@@ -2124,6 +2142,25 @@ main {
 }
 .detail-add.picked {
   background: #167865;
+}
+.detail-quick-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 10px;
+}
+.detail-quick-actions button {
+  min-height: 46px;
+  border: 1px solid rgba(255, 255, 255, 0.48);
+  border-radius: 999px;
+  background: rgba(8, 45, 57, 0.42);
+  color: #fff;
+  font-weight: 700;
+  backdrop-filter: blur(10px);
+}
+.detail-quick-actions button:last-child {
+  border-color: rgba(255, 213, 210, 0.7);
+  background: rgba(145, 39, 48, 0.56);
 }
 .detail-nav {
   position: sticky;
