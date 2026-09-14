@@ -813,7 +813,7 @@ async function copySpotName(place: Place) {
     copiedSpotId.value = null;
   }, 1800);
 }
-function prepareXiaohongshu(place: Place) {
+function openXiaohongshu(place: Place) {
   const searchText = spotSearchText(place);
   copyTextSynchronously(searchText);
   copiedSpotId.value = place.id;
@@ -821,6 +821,8 @@ function prepareXiaohongshu(place: Place) {
   copyResetTimer = setTimeout(() => {
     copiedSpotId.value = null;
   }, 1800);
+  const placeholder = encodeURIComponent(searchText);
+  window.location.href = `xhsdiscover://search/recommend?placeholder=${placeholder}&mode=notes&source=deeplink`;
 }
 function openGeneratedPlan() {
   const plannerResult = planTrip({
@@ -1255,9 +1257,9 @@ watch(islandId, () => {
           <button @click="copySpotName(detailPlace)">
             {{ copiedSpotId === detailPlace.id ? "✓ 已复制" : "复制名称" }}
           </button>
-          <a href="xhsdiscover://home" @click="prepareXiaohongshu(detailPlace)">
+          <button @click="openXiaohongshu(detailPlace)">
             复制并打开小红书 ↗
-          </a>
+          </button>
         </div>
       </div>
     </section>
@@ -1664,9 +1666,9 @@ watch(islandId, () => {
               <button @click.stop="copySpotName(p)">
                 {{ copiedSpotId === p.id ? "✓ 已复制" : "复制名称" }}
               </button>
-              <a href="xhsdiscover://home" @click.stop="prepareXiaohongshu(p)">
+              <button @click.stop="openXiaohongshu(p)">
                 复制并打开小红书 ↗
-              </a>
+              </button>
             </div>
           </div>
           <button
