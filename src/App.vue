@@ -790,19 +790,22 @@ function toggle(id: string) {
 function spotSearchText(place: Place) {
   return `${islands[place.island].name} ${place.name} ${place.en}`;
 }
+function copyTextSynchronously(text: string) {
+  const textarea = document.createElement("textarea");
+  textarea.value = text;
+  textarea.style.position = "fixed";
+  textarea.style.opacity = "0";
+  document.body.appendChild(textarea);
+  textarea.select();
+  document.execCommand("copy");
+  textarea.remove();
+}
 async function copySpotName(place: Place) {
   const text = `${place.name} · ${place.en}`;
   try {
     await navigator.clipboard.writeText(text);
   } catch {
-    const textarea = document.createElement("textarea");
-    textarea.value = text;
-    textarea.style.position = "fixed";
-    textarea.style.opacity = "0";
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand("copy");
-    textarea.remove();
+    copyTextSynchronously(text);
   }
   copiedSpotId.value = place.id;
   if (copyResetTimer) clearTimeout(copyResetTimer);
@@ -811,8 +814,15 @@ async function copySpotName(place: Place) {
   }, 1800);
 }
 function openXiaohongshu(place: Place) {
-  const keyword = encodeURIComponent(spotSearchText(place));
-  window.location.href = `xhsdiscover://search/result?keyword=${keyword}&target_search=notes&source=deeplink`;
+  const searchText = spotSearchText(place);
+  copyTextSynchronously(searchText);
+  copiedSpotId.value = place.id;
+  if (copyResetTimer) clearTimeout(copyResetTimer);
+  copyResetTimer = setTimeout(() => {
+    copiedSpotId.value = null;
+  }, 1800);
+  const placeholder = encodeURIComponent(searchText);
+  window.location.href = `xhsdiscover://search/recommend?placeholder=${placeholder}&mode=notes&source=deeplink`;
 }
 function openGeneratedPlan() {
   const plannerResult = planTrip({
@@ -1247,7 +1257,9 @@ watch(islandId, () => {
           <button @click="copySpotName(detailPlace)">
             {{ copiedSpotId === detailPlace.id ? "✓ 已复制" : "复制名称" }}
           </button>
-          <button @click="openXiaohongshu(detailPlace)">小红书攻略 ↗</button>
+          <button @click="openXiaohongshu(detailPlace)">
+            复制并打开小红书 ↗
+          </button>
         </div>
       </div>
     </section>
@@ -1654,7 +1666,9 @@ watch(islandId, () => {
               <button @click.stop="copySpotName(p)">
                 {{ copiedSpotId === p.id ? "✓ 已复制" : "复制名称" }}
               </button>
-              <button @click.stop="openXiaohongshu(p)">小红书攻略 ↗</button>
+              <button @click.stop="openXiaohongshu(p)">
+                复制并打开小红书 ↗
+              </button>
             </div>
           </div>
           <button
