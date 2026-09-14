@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fff8f3" />
+    <title>小红书跳转测试</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        padding: 36px 20px;
+        background: #fff8f3;
+        color: #292321;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
+      }
+      main {
+        width: min(100%, 520px);
+        margin: 0 auto;
+      }
+      small {
+        color: #a34646;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+      }
+      h1 {
+        margin: 10px 0 12px;
+        font:
+          700 34px/1.15 Georgia,
+          serif;
+      }
+      p {
+        color: #665d58;
+        line-height: 1.7;
+      }
+      .query {
+        margin: 22px 0;
+        padding: 16px;
+        border-radius: 16px;
+        background: #fff;
+        box-shadow: 0 10px 32px rgba(75, 42, 31, 0.08);
+      }
+      .query b {
+        display: block;
+        margin-bottom: 5px;
+      }
+      .tests {
+        display: grid;
+        gap: 14px;
+      }
+      article {
+        padding: 18px;
+        border: 1px solid #eadbd3;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.78);
+      }
+      article h2 {
+        margin: 0 0 6px;
+        font-size: 18px;
+      }
+      article p {
+        min-height: 48px;
+        margin: 0 0 14px;
+        font-size: 13px;
+      }
+      a,
+      button {
+        display: flex;
+        width: 100%;
+        min-height: 50px;
+        align-items: center;
+        justify-content: center;
+        border: 0;
+        border-radius: 999px;
+        background: #bc3140;
+        color: #fff;
+        font: 700 15px/1 sans-serif;
+        text-decoration: none;
+      }
+      button {
+        margin-top: 14px;
+        background: #342e2a;
+      }
+      #status {
+        min-height: 24px;
+        color: #247366;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <small>DEEPLINK LAB</small>
+      <h1>小红书搜索跳转测试</h1>
+      <p>
+        请使用手机 Safari 或 Chrome
+        逐个测试。每次点击都会先复制关键词；返回本页后再测试下一项。
+      </p>
+      <div class="query">
+        <b>测试关键词</b>
+        <span id="query">欧胡岛 鲨鱼湾 Shark's Cove</span>
+      </div>
+      <div class="tests">
+        <article>
+          <h2>A · 官方搜索结果页</h2>
+          <p>目标是直接显示已填入关键词的笔记搜索结果。</p>
+          <a id="result-link" href="#">测试 A</a>
+        </article>
+        <article>
+          <h2>B · 兼容搜索路径</h2>
+          <p>部分客户端版本使用较早的关键词路径。</p>
+          <a id="legacy-link" href="#">测试 B</a>
+        </article>
+        <article>
+          <h2>C · 搜索输入页</h2>
+          <p>这是目前已确认能够打开的方案，关键词需要粘贴。</p>
+          <a id="recommend-link" href="#">测试 C</a>
+        </article>
+      </div>
+      <button id="copy-button" type="button">只复制测试关键词</button>
+      <p id="status" role="status" aria-live="polite"></p>
+    </main>
+    <script>
+      const query = document.getElementById("query").textContent;
+      const encoded = encodeURIComponent(query);
+      const status = document.getElementById("status");
+      const links = {
+        "result-link": `xhsdiscover://search/result?keyword=${encoded}&target_search=notes&source=deeplink`,
+        "legacy-link": `xhsdiscover://search/keyword=${encoded}`,
+        "recommend-link": `xhsdiscover://search/recommend?placeholder=${encoded}&mode=notes&source=deeplink`,
+      };
+      function copyQuery() {
+        const textarea = document.createElement("textarea");
+        textarea.value = query;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        textarea.remove();
+        status.textContent = "已复制测试关键词";
+      }
+      Object.entries(links).forEach(([id, href]) => {
+        const link = document.getElementById(id);
+        link.href = href;
+        link.addEventListener("click", copyQuery);
+      });
+      document
+        .getElementById("copy-button")
+        .addEventListener("click", copyQuery);
+    </script>
+  </body>
+</html>
