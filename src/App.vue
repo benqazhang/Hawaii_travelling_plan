@@ -812,22 +812,7 @@ async function copySpotName(place: Place) {
 }
 function openXiaohongshu(place: Place) {
   const keyword = encodeURIComponent(spotSearchText(place));
-  const webUrl = `https://www.xiaohongshu.com/search_result?keyword=${keyword}`;
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-  if (!isMobile) {
-    window.open(webUrl, "_blank", "noopener,noreferrer");
-    return;
-  }
-  const startedAt = Date.now();
   window.location.href = `xhsdiscover://search/result?keyword=${keyword}&target_search=notes&source=deeplink`;
-  setTimeout(() => {
-    if (
-      document.visibilityState === "visible" &&
-      Date.now() - startedAt < 2600
-    ) {
-      window.location.href = webUrl;
-    }
-  }, 1300);
 }
 function openGeneratedPlan() {
   const plannerResult = planTrip({
