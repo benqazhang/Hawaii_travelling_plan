@@ -813,16 +813,17 @@ async function copySpotName(place: Place) {
     copiedSpotId.value = null;
   }, 1800);
 }
-function openXiaohongshu(place: Place) {
-  const searchText = spotSearchText(place);
-  copyTextSynchronously(searchText);
+function xiaohongshuSearchUrl(place: Place) {
+  const keyword = encodeURIComponent(spotSearchText(place));
+  return `xhsdiscover://search/result?keyword=${keyword}&target_search=notes&source=deeplink`;
+}
+function prepareXiaohongshu(place: Place) {
+  copyTextSynchronously(spotSearchText(place));
   copiedSpotId.value = place.id;
   if (copyResetTimer) clearTimeout(copyResetTimer);
   copyResetTimer = setTimeout(() => {
     copiedSpotId.value = null;
   }, 1800);
-  const placeholder = encodeURIComponent(searchText);
-  window.location.href = `xhsdiscover://search/recommend?placeholder=${placeholder}&mode=notes&source=deeplink`;
 }
 function openGeneratedPlan() {
   const plannerResult = planTrip({
@@ -1257,9 +1258,11 @@ watch(islandId, () => {
           <button @click="copySpotName(detailPlace)">
             {{ copiedSpotId === detailPlace.id ? "✓ 已复制" : "复制名称" }}
           </button>
-          <button @click="openXiaohongshu(detailPlace)">
-            复制并打开小红书 ↗
-          </button>
+          <a
+            :href="xiaohongshuSearchUrl(detailPlace)"
+            @click="prepareXiaohongshu(detailPlace)"
+            >小红书攻略 ↗</a
+          >
         </div>
       </div>
     </section>
@@ -1666,9 +1669,11 @@ watch(islandId, () => {
               <button @click.stop="copySpotName(p)">
                 {{ copiedSpotId === p.id ? "✓ 已复制" : "复制名称" }}
               </button>
-              <button @click.stop="openXiaohongshu(p)">
-                复制并打开小红书 ↗
-              </button>
+              <a
+                :href="xiaohongshuSearchUrl(p)"
+                @click.stop="prepareXiaohongshu(p)"
+                >小红书攻略 ↗</a
+              >
             </div>
           </div>
           <button
